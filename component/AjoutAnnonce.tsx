@@ -10,7 +10,7 @@ function Signup({ navigation }) {
   const [vehicule, setVehicules] = useState([]);
 
   useEffect(() => {
-    fetch('http://10.0.2.2:8080/vehicule', {
+    fetch('https://s5backendcloudventevoiture-production.up.railway.app/vehicule', {
       method: 'GET',
     })
         .then(res => res.json())
@@ -59,7 +59,7 @@ function Signup({ navigation }) {
   };*/
 
   const handleSubmit = async () => {
-    const response = await fetch('http://10.0.2.2:8080/annonce', {
+    const response = await fetch('https://s5backendcloudventevoiture-production.up.railway.app/annonce', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

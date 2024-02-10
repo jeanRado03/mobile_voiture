@@ -11,7 +11,7 @@ function Home() {
   const [annonce, setAnnonces] = useState([]);
 
   useEffect(() => {
-    fetch('http://10.0.2.2:8080/annonce/getAnnoncesValidees', {
+    fetch('https://s5backendcloudventevoiture-production.up.railway.app/annonce/getAnnoncesValidees', {
       method: 'GET',
     })
         .then(res => res.json())

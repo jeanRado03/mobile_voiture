@@ -24,7 +24,7 @@ function Sign({ navigation }) {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async () => {
-    const response = await fetch('http://10.0.2.2:8080/user/authenticate', {
+    const response = await fetch('https://s5backendcloudventevoiture-production.up.railway.app/user/authenticate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ const DetailAnnonce = ({ navigation }) => {
   const route = useRoute();
   const { annonce } = route.params;
   const handleBuy = async () => {
-    const response = await fetch('http://10.0.2.2:8080/favori/USR014/' + annonce.id_annonce, {
+    const response = await fetch('https://s5backendcloudventevoiture-production.up.railway.app/favori/USR014/' + annonce.id_annonce, {
       method: 'POST'});
     navigation.navigate('Home');
   };
