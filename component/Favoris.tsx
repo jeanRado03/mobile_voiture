@@ -3,14 +3,36 @@ import React, {useEffect, useState} from 'react';
 import { View, ScrollView,Text,StyleSheet, TouchableOpacity, Image } from 'react-native';
 import HeaderOne from './navgroup/HeaderOne';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Annonce() {
+    const [ token, setToken ] = useState(null);
+  const [ userId, setUserId ] = useState(null);
   const navigation = useNavigation();
   const [annonce, setAnnonces] = useState([]);
+  
 
   useEffect(() => {
-    fetch('https://s5backendcloudventevoiture-production.up.railway.app/annonce/getAnnoncesValidees', {
+    const getTokenAndUserId = async () => {
+        try {
+          const tokens = await AsyncStorage.getItem('token');
+          const userID = await AsyncStorage.getItem('userId');
+          console.log(tokens);
+          console.log(userID);
+      
+          // Utilisez les valeurs comme bon vous semble (par exemple, les afficher dans votre écran)
+          setToken(tokens);
+          setUserId(userID);
+        } catch (error) {
+          console.error('Erreur lors de la récupération des valeurs :', error);
+        }
+      };
+      getTokenAndUserId();
+    fetch('https://s5backendcloudventevoiture-production.up.railway.app/favori/' + userId, {
       method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
     })
         .then(res => res.json())
         .then(
@@ -55,7 +77,6 @@ function Annonce() {
         container: {
           padding: 10,
           alignItems: 'center',
-          position: 'relative',
         },
         heading: {
           marginBottom: 10,

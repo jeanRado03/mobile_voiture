@@ -64,7 +64,7 @@ function Signup({ navigation }) {
   };*/
 
   const handleSubmit = async () => {
-    const response = await fetch('https://s5backendcloudventevoiture-production.up.railway.app/user/register', {
+    const response = await fetch('https://s5backendcloudventevoiture-production.up.railway.app /user/register', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

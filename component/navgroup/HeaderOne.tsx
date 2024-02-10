@@ -36,15 +36,12 @@ function Header(){
 
       {menuOpen && (
         <View style={styles.menugroupe}>
-          <View>
-            <Text style={styles.textStyle} onPress={() => navigation.navigate('favoris')}>Favoris</Text>
-          </View>
-          <View>
-            <Text style={styles.textStyle} onPress={() => navigation.navigate('AjoutAnnonce')}>Annonce</Text>
-          </View>
-          <View>
-            <Text style={styles.textStyle} onPress={() => navigation.navigate('deconnexion')}>Deconnexion</Text>
-          </View>
+            <View>
+                <Text style={styles.textStyle} onPress={() => navigation.navigate('Signin')}>Se connecter</Text>
+            </View>
+            <View>
+                <Text style={styles.textStyle} onPress={() => navigation.navigate('Signup')}>S'inscrire</Text>
+            </View>
         </View>
       )}
 

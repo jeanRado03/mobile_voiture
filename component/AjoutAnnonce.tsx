@@ -2,14 +2,32 @@
 /* eslint-disable semi */
 import React, {useState, useEffect} from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Modal, TouchableHighlight } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Signup({ navigation }) {
+  const [ token, setToken ] = useState(null);
+  const [ userId, setUserId ] = useState(null);
 
   const [modalVisible, setModalVisible] = useState(false);
 
   const [vehicule, setVehicules] = useState([]);
 
   useEffect(() => {
+    const getTokenAndUserId = async () => {
+      try {
+        const tokens = await AsyncStorage.getItem('token');
+        const userID = await AsyncStorage.getItem('userId');
+        console.log(tokens);
+        console.log(userID);
+    
+        // Utilisez les valeurs comme bon vous semble (par exemple, les afficher dans votre écran)
+        setToken(tokens);
+        setUserId(userID);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des valeurs :', error);
+      }
+    };
+    getTokenAndUserId();
     fetch('https://s5backendcloudventevoiture-production.up.railway.app/vehicule', {
       method: 'GET',
     })
@@ -23,12 +41,6 @@ function Signup({ navigation }) {
             }
         );
   }, []);
-
-  const [id_user, setIdUser] = useState('');
-
-  const handleUserChange = (id_user) => {
-    setIdUser(id_user);
-  };
 
   const [id_vehicule, setIdVehicule] = useState('vehicule');
 
@@ -59,39 +71,44 @@ function Signup({ navigation }) {
   };*/
 
   const handleSubmit = async () => {
-    const response = await fetch('https://s5backendcloudventevoiture-production.up.railway.app/annonce', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        vehicule: {
-          id_vehicule: id_vehicule,
+    try {
+      const response = await fetch('https://s5backendcloudventevoiture-production.up.railway.app/annonce', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        utilisateur: {
-          id_user: id_user,
-        },
-        prix: prix,
-        etat: etat,
-        description: description,
-      }),
-    });
-    navigation.navigate('Home');
+        body: JSON.stringify({
+          vehicule: {
+            id_vehicule: id_vehicule,
+          },
+          utilisateur: {
+            id_user: userId,
+          },
+          prix: prix,
+          etat: etat,
+          description: description,
+        }),
+      });
+  
+      if (!response.ok) {
+        // Gérez l'erreur ici (par exemple, affichez-la dans la console)
+        console.error('Erreur lors de la requête:', response.status, response.statusText);
+      } else {
+        // La requête a réussi, continuez avec votre logique
+        navigation.navigate('Home');
+      }
+    } catch (error) {
+      // Gérez les erreurs liées à la connexion réseau, etc.
+      console.error('Erreur lors de la requête:', error);
+    }
   };
-
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.bigBlue}>Créer une Annonce</Text>
         <View style={styles.inputContents}>
-          <TextInput
-            style={styles.input}
-            placeholder="User"
-            placeholderTextColor="#ccc7d0"
-            onChangeText={handleUserChange}
-            value={id_user}
-          />
           <TouchableHighlight
             onPress={() => setModalVisible(true)}
             style={styles.input}

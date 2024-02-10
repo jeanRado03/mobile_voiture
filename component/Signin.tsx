@@ -37,6 +37,7 @@ function Sign({ navigation }) {
     const data = await response.json();
     if (data.token) {
       await AsyncStorage.setItem('token', data.token);
+      await AsyncStorage.setItem('userId', data.userId);
       navigation.navigate('Home');
     } else {
       setMessage('Unauthorized request');
