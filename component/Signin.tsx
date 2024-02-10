@@ -42,6 +42,11 @@ function Sign({ navigation }) {
       setMessage('Unauthorized request');
     }
   };
+
+  const annonce = async () => {
+    navigation.navigate('Annonce');
+  };
+
   return (
         <View style={styles.container}>
           <Text style={styles.bigBlue}>Sign in</Text>
@@ -62,7 +67,7 @@ function Sign({ navigation }) {
               onChangeText={handlePasswordChange}
               value={password}
             />
-            <Text style={styles.forget}>Mot de Passe oublié?</Text>
+            <Text style={styles.forget} onPress={annonce}>Mot de Passe oublié?</Text>
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
               <Text style={styles.buttonText}>Se Connecter</Text>
             </TouchableOpacity>
@@ -76,60 +81,56 @@ function Sign({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 75,
-        height: 680,
-    },
-    bigBlue: {
-        color: 'blue',
-        fontWeight: 'bold',
-        fontSize: 30,
-        textAlign: 'center',
-    },
-    red: {
-        color: 'red',
-    },
-    inputContents: {
-        marginTop: 100,
-    },
-    input: {
-        height: 65,
-        width: 350,
-        borderRadius: 20,
-        marginTop: 20,
-        marginLeft: 23,
-        backgroundColor: 'white',
-        fontSize: 16,
-        color: 'black',
-        paddingLeft: 30,
-    },
-    forget: {
-        textAlign: 'center',
-        marginTop: 20,
-    },
-    button: {
-        height: 55,
-        width: 350,
-        marginTop: 20,
-        marginLeft: 23,
-        borderRadius: 40,
-        backgroundColor: 'blue',
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: 'white',
-        paddingTop: 12,
-        fontSize: 20,
-    },
-    bottom: {
-        bottom: -145,
-    },
-    signup: {
-        color: 'blue',
-        fontWeight: 'bold',
-        fontSize: 25,
-        textAlign: 'center',
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5fcff',
+  },
+  bigBlue: {
+    color: 'blue',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  inputContents: {
+    marginTop: 20,
+    width: '80%',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 5,
+  },
+  forget: {
+    color: 'gray',
+    textAlign: 'right',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  bottom: {
+    flexDirection: 'row',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  signup: {
+    color: 'blue',
+    marginTop: 10,
+    marginLeft: 5,
+  },
 });
 
 
